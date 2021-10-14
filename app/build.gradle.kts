@@ -10,6 +10,8 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.4.20"
 
+    kotlin("kapt") version "1.4.31"
+
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -34,6 +36,10 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+
+    // Json parser
+    implementation("com.squareup.moshi:moshi:1.11.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.11.0")
 }
 
 application {
