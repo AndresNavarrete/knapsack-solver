@@ -19,6 +19,11 @@ fun createInstance(input: Map<String, Any>): Instance {
 }
 
 fun solveInstance(instance: Instance): Map<String, Any> {
+    val validator: Validator = Validator(instance)
+    if (validator.isNotValid()) {
+        return mapOf("status" to "failed", "error" to validator.error)
+    }
     val algorithm = Algorithm()
-    return algorithm.solve(instance)
+    algorithm.solve(instance)
+    return algorithm.getResponse()
 }

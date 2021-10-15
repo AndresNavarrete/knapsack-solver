@@ -12,12 +12,10 @@ class Algorithm {
     var optimalValue: Int = 0
     val itemsSelected: MutableList<Int> = mutableListOf()
 
-    fun solve(instance: Instance): Map<String, Any> {
+    fun solve(instance: Instance) {
         initialize(instance)
         executeAlgorithm()
         reportResults()
-        return mapOf("status" to "ok", "optimal_solution" to itemsSelected , "optimal_value" to optimalValue)
-
     }
 
     fun initialize(instance: Instance) {
@@ -60,18 +58,20 @@ class Algorithm {
         var currentCapacity: Int = capacity
         var valueWithObject: Int
         var valueWithoutObject: Int
-        var itemSelected: Int
         for (item in numberOfItems downTo 1) {
             valueWithObject = valueToGo[item][currentCapacity]
             valueWithoutObject = valueToGo[item - 1][currentCapacity]
             if (valueWithObject <= valueWithoutObject) {
               continue  
             }
-            itemSelected = item - 1
-            itemsSelected.add(itemSelected)
-            currentCapacity -= weights[itemSelected]
+            itemsSelected.add(item)
+            currentCapacity -= weights[item - 1]
         }
         itemsSelected.sort()
+    }
+
+    fun getResponse(): Map<String, Any> {
+        return mapOf("status" to "ok", "optimal_solution" to itemsSelected , "optimal_value" to optimalValue)
     }
 
 }
